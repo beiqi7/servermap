@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>网站正在施工，请等待</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff; /* 设置默认背景颜色为白色 */
+    }
+
+    .construction-container {
+      background-color: #00FF00; /* 设置施工消息背景颜色为 Lime */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .construction-text {
+      font-size: 24px;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #00FF00; /* 设置底部版权信息背景颜色为 Lime */
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    #timer {
+      color: #fff;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="construction-container">
+    <div class="construction-text">网站正在施工，请耐心等待。</div>
+  </div>
+
+  <footer>
+    Powered by Seoky | <a href="https://blog.shiina.fun" target="_blank" rel="noopener noreferrer">blog.shiina.fun</a>
+    <div id="timer"></div>
+  </footer>
+
+  <script>
+    const siteBuildTime = new Date('2022-01-01'); // 替换为你的网站建立时间
+    const timerElement = document.getElementById('timer');
+
+    function updateTimer() {
+      const currentTime = new Date();
+      const timeDifference = currentTime.getTime() - siteBuildTime.getTime();
+
+      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hoursDifference = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutesDifference = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      const secondsDifference = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+      timerElement.innerHTML = `网站建立时间：${daysDifference}天 ${hoursDifference}小时 ${minutesDifference}分钟 ${secondsDifference}秒`;
+    }
+
+    fetch('https://source.unsplash.com/random/1920x1080')
+      .then(response => {
+        const imageUrl = response.url;
+        document.body.style.backgroundImage = `url(${imageUrl})`;
+      })
+      .catch(error => console.error(error));
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+  </script>
+</body>
+</html>
